@@ -44,6 +44,10 @@ resource "aws_apigatewayv2_api" "task" {
 resource "aws_apigatewayv2_stage" "task" {
   api_id = aws_apigatewayv2_api.task.id
   name   = "task-stage"
+
+  depends_on = [
+    aws_apigatewayv2_deployment.task
+  ]
 }
 
 resource "aws_apigatewayv2_route" "task" {
@@ -77,6 +81,11 @@ resource "aws_apigatewayv2_deployment" "task" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [
+    aws_apigatewayv2_integration_response.task,
+    aws_apigatewayv2_route_response.task
+  ]
 }
 
 resource "aws_apigatewayv2_route" "get" {
@@ -96,14 +105,14 @@ resource "aws_apigatewayv2_integration" "get" {
 
 resource "aws_apigatewayv2_integration_response" "task" {
   api_id                   = aws_apigatewayv2_api.task.id
-  integration_id           = aws_apigatewayv2_integration.get.id
-  integration_response_key = "/200/"
+  integration_id           = aws_apigatewayv2_integration.task.id
+  integration_response_key = "$default"
   response_templates       = {}
 }
 
 resource "aws_apigatewayv2_route_response" "task" {
   api_id             = aws_apigatewayv2_api.task.id
-  route_id           = aws_apigatewayv2_route.get.id
+  route_id           = aws_apigatewayv2_route.task.id
   route_response_key = "$default"
 }
 

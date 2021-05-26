@@ -28,6 +28,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
       {
         Action = [
           "dynamodb:*",
+          "kms:DescribeKey",
+          "kms:ListAliases"
         ]
         Effect   = "Allow"
         Resource = "*"
