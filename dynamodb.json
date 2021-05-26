@@ -1,0 +1,31 @@
+{
+    "devops-activity": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "word": {
+                        "S": "banana"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "word": {
+                        "S": "car"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "word": {
+                        "S": "truck"
+                    }
+                }
+            }
+        }
+    ]
+}
